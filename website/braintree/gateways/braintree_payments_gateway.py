@@ -1,5 +1,4 @@
 from django.conf import settings
-from ..gateway import Gateway
 from ..utils.credit_card import InvalidCard, Visa, MasterCard, \
     AmericanExpress, Discover, CreditCard
 import braintree
