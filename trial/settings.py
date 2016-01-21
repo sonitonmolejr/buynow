@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_braintree',
-
     'website',
 ]
 
@@ -148,11 +146,11 @@ BRAINTREE_MERCHANT = get_secret('BRAINTREE_MERCHANT_ID')
 BRAINTREE_PUBLIC_KEY = get_secret('BRAINTREE_PUBLIC_KEY')
 BRAINTREE_PRIVATE_KEY = get_secret('BRAINTREE_PRIVATE_KEY')
 
-from braintree import Configuration, Environment
-
-Configuration.configure(
-    Environment.Sandbox,
-    BRAINTREE_MERCHANT,
-    BRAINTREE_PUBLIC_KEY,
-    BRAINTREE_PRIVATE_KEY
-)
+MERCHANT_TEST_MODE = True # Toggle for live
+MERCHANT_SETTINGS = {
+    "braintree_payments": {
+        "MERCHANT_ACCOUNT_ID": BRAINTREE_MERCHANT,
+        "PUBLIC_KEY": BRAINTREE_PUBLIC_KEY,
+        "PRIVATE_KEY": BRAINTREE_PRIVATE_KEY
+    }
+}
