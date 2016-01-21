@@ -1,4 +1,3 @@
-import logging
 from datetime import datetime
 
 from django import forms
@@ -53,3 +52,14 @@ class UserCCDetailsForm(forms.Form):
         label='CV Code',
         widget=forms.TextInput(attrs={'placeholder': '123'})
     )
+
+    def clean(self):
+        today = datetime.today()
+        exp_month = int(self.cleaned_data['expiration_month'])
+        exp_year = int(int(self.cleaned_data['expiration_year']))
+
+        if exp_year < today.year or (exp_month <= today.month and exp_year <= today.year):
+            raise forms.ValidationError('Please make sure your Credit Card expires in the future.')
+
+        return self.cleaned_data
+
